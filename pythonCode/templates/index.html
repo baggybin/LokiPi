@@ -1,0 +1,165 @@
+
+
+<!doctype html>
+<head>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+</head>
+
+<style>
+h3, h4 {text-align: center;}
+span {font-weight: bold; }
+
+
+#content {
+ 
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+</style>
+
+<script type=text/javascript>
+    $(
+    // When the LED button is pressed (change)
+    // do an ajax request to server to change LED state
+    
+    ////////////////////// KARMA ///////////////////////
+    function() 
+    {
+        $('#flip-1').change(function() 
+        {
+        $.getJSON('/_KARMA', {state: $('#flip-1').val()});
+        });     
+    }
+    );
+
+
+    /////////////////////// SSLSTRIP ///////////////////////
+     $(
+    // When the LED button is pressed (change)
+    // do an ajax request to server to change LED state
+    function() 
+    {
+        $('#flip-2').change(function() 
+        {
+        $.getJSON('/_SSLSTRIP', {state: $('#flip-2').val()});
+        });     
+    }
+    );   
+    
+    
+    /////////////////////// PARSE ///////////////////////
+     $( 
+      function() 
+    {
+        $('#flip-3').change(function() 
+        {
+        $.getJSON('/_PARSE', {state: $('#flip-3').val()});
+        });
+       
+    }
+    );     
+    
+    
+    
+    
+   //////////////////////////// STATE //////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////////////////////////
+    
+    // perioidic Ajax request (500 milliseconds to Main Process)
+    
+    
+    $( 
+    function getstate() 
+    {
+        $.getJSON('/sslstrip_state', function(data)
+            {
+                $("#sslstrip_state").text(data.currentState);
+                setTimeout(function(){getstate();},500);
+            });
+    }
+    ); 
+    
+    
+    $( 
+    function getstate() 
+    {
+        $.getJSON('/karma_state', function(data)
+            {
+                $("#karma_state").text(data.currentState);
+                setTimeout(function(){getstate();},500);
+                
+                //if(data.currentState==="Broadcast Off") {
+                //    $.getJSON('/_KARMA', {state: $('#flip-1').val()});   }
+            });
+    }
+    );  
+    
+
+</script>
+
+
+<div data-role="page" data-theme="b">
+  <div data-role="header" >
+    <div><h3>LokiPi</h3></div>
+  </div>
+
+  
+  
+  <div data-role="content" id="content" >
+    
+    <form>
+   
+    <!-- Field contain allowed me add attack name and current mode-->
+    <div data-role="fieldcontain" style="text-align: center" >
+    <label for="flip-1">KARMA <span id="karma_state"></span></label>    
+    <select name="flip-1" id="flip-1" data-role="slider"  style="float: left;"  >
+        <option value="off"></option>
+        <option value="on"></option>
+    </div>
+    </select>
+   
+
+    <br>
+
+    <div data-role="fieldcontain" >
+    <label for="flip-2">SSLstrip <span id="sslstrip_state"></span></label>    
+    <select name="flip-2" id="flip-2" data-role="slider"  style="float: left;"  >
+        <option value="off"></option>
+        <option value="on"></option>
+    </div>
+    </select>       
+ 
+    <br>
+
+    
+    <div data-role="fieldcontain" >
+    <label for="flip-3">Parse SSL log <span id="parse_state"></span></label>    
+    <select name="flip-3" id="flip-3" data-role="slider"  style="float: left;"  >
+        <option value="off"></option>
+        <option value="on"></option>
+    </div>
+    </select>
+    
+    
+    </form>
+
+   </div>
+  
+  
+<!--      <div data-role="popup" id="myPopup" class="ui-content">
+      <h3>Welcome!</h3>
+      <p>Parsed<span style="font-size:35px;">styled text</span></p>
+     </div>-->
+  
+  
+ <div data-role="footer">
+    <div><h4>LokiPi {{uptime}}</h4></div>
+  </div>
+</div>
+
+

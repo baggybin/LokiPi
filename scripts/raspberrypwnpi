@@ -1,0 +1,61 @@
+#! /bin/sh
+# /etc/init.d/raspberrypwnpi
+ 
+case "$1" in
+  start)
+echo "            Starting LOKiPi            "
+
+                                      
+echo "        .M,                 +M         "
+echo "        :MMMM               MMMM,      ~"
+echo "       ~MM .M             M  MM:       ~"
+echo "       .MM.  M           M   MM        ~"
+echo "       .MMM                .MMM        ~"
+echo "         MM,               MMM.        ~"
+echo "         MMM.              MMM         ~"
+echo "          MMM            .MMM          ~"
+echo "          +M+MMMMMMMM,7MM MM           ~"
+echo "           MMM ? ,MMM.MMM MM           ~"
+echo "           .MM MM .M DMIMMM            ~"
+echo "            MMMMMMMMMM, MMM            ~"
+echo "           .M$MM +MMMM MNM,            ~"
+echo "            MMMMMMMMM.MMMMN            ~"
+echo "            N.OM.MM=MM MM .            ~"
+echo "            ...  .. .    :.            ~"
+echo "             N           O             ~"
+echo "             NM        .M~             ~"
+echo "             .8.       MM              ~"
+echo "              M..     MM.              ~"
+echo "               MM      M               ~"
+echo "               .=    .M                ~"
+echo "                                       ~"
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+
+    sudo service dnsmasq stop
+    sleep 5s
+    sudo ifconfig wlan1 up
+    sudo ifconfig wlan0 up
+	
+    sudo python /rasberryPwnPi/pythonCode/Karma1.py &
+    ;;
+  stop)
+    echo "Stopping raspberrypwnpi"
+    echo "Killing any open Proc's"
+    sudo killall -9  python
+    sudo killall -9 hostapd
+    sudo service dnsmasq stop
+    sudo airmon-ng stop mon0
+    sudo iptables --flush
+    sudo iptables --table nat --flush
+    sudo iptables --delete-chain 
+    sudo iptables --table nat --delete-chain  
+    
+    ;;
+  *)
+    echo "Usage: Service raspberrypwnpi {start|stop}"
+    exit 1
+    ;;
+esac
+ 
+exit 0

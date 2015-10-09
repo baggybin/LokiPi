@@ -1,0 +1,25 @@
+# $Id: dnsspoof.hosts,v 1.2 2000/08/28 13:28:21 dugsong Exp $
+
+# Sample hosts file for dnsspoof - kill web banner ads for Niels. :-)
+#
+192.168.1.111	*facebook.com
+
+192.168.1.111	*dabs.ie
+192.168.1.111   *sceper.ws
+
+127.0.0.1	adbot*.*
+127.0.0.1	adcount*.*
+127.0.0.1	adfinity*.*
+127.0.0.1	adforce*.*
+127.0.0.1	adimage*.*
+127.0.0.1	adlink*.*
+127.0.0.1	adserv*.*
+127.0.0.1	adremote*.*
+127.0.0.1	adv.*
+127.0.0.1	advert*.*
+127.0.0.1	banner*.*
+127.0.0.1	count*.*
+127.0.0.1	promo*.*
+127.0.0.1	werbung*.*
+127.0.0.1	*ads*.*.com
+
